@@ -1,0 +1,20 @@
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+@media (min-width: 992px) {
+  .text-lg-start {
+    text-align: left !important;
+  }
+}
+#footer_bottom .copyright{
+  background-color: #010101;
+  font-size: 1.2em;
+  line-height: 1.6;
+  padding:2px 15px 3px !important;
+  color: #fff 
+}

@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="chat-container">
+        {{#if user}}
+            <input type="hidden" value="{{user.email}}" id="emailUser" />
+            <input type="hidden" value="" id="socketUser" />
+            <input type="hidden" value="{{user.name}}" id="nameUser" />
+        {{/if}}
+        <div class="container1">
+            <div id="chat-log">
+            <div class="message">
+                {{!-- <div class="sender">John Doe</div>
+                <div class="contentSender ">Hello! How are you?</div>
+                <div class="contentSender ">có cái loz</div>
+                <div class="receive">Jane Smith</div>
+                <div class="contentReceive">I'm good, thanks! How about you?</div> --}}
+            </div>
+            <!-- Thêm các tin nhắn khác vào đây -->
+        </div>
+        </div>
+        
+        <div class="input-group">
+            <input
+                type="text"
+                id="user-input"
+                class="form-control"
+                placeholder="Enter your message..."
+            />
+            <div class="input-group-append">
+                <button id="send-button" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script
+    src="https://code.jquery.com/jquery-3.6.3.js"
+    integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+    crossorigin="anonymous"
+></script>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+<script src='/js/chatUser.js'></script>
+<script>
+
+    
+
+</script>

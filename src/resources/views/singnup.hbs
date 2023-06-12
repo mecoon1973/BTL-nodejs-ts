@@ -1,0 +1,53 @@
+<head><link rel="stylesheet" href="./assets/style/style_singnup.css" /></head>
+<body>
+    <section class="formbox --flex-center --100vh --bg-grey">
+        <div class="container">
+            <div class="main-container --flex-center">
+                <div class="img-container">
+                    <img src="./img/login.svg" alt="login" />
+                </div>
+                <div class="form-container">
+                    <h2 class="--color-danger --text-center">Login</h2>
+                    <form
+                        class="--form-control"
+                        action=""
+                        method="POST"
+                        id="loginForm"
+                    >
+                        <input
+                            type="text"
+                            class="--width-100 Username"
+                            placeholder="Username"
+                        />
+                        <input
+                            type="password"
+                            class="--width-100 Password"
+                            name=""
+                            id=""
+                            placeholder="Password"
+                        />
+                        <small
+                            class="text-danger error-text password_err"
+                        ></small>
+                        <button
+                            class="--btn --btn-primary --btn-block"
+                            type="submit"
+                        >Login</button>
+                    </form>
+                    <a class="--text-sm" href="/login/reset">Forgot Password</a>
+                    <span class="--text-sm --block">
+                        Dont have an account?
+                        <a href="/login/register" class="--text-sm">Register</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script
+        src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+        crossorigin="anonymous"
+    ></script>
+    <script src='/js/login/singnup.js'></script>
+
+</body>
