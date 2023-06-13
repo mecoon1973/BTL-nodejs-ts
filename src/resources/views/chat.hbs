@@ -1,3 +1,7 @@
+<head>
+    <link rel="stylesheet" href="/style/style_blog.css" />
+    <link rel="stylesheet" href="/style/style_write.css" />
+</head>
 <div class="container">
     <div class="chat-container">
         {{#if user}}
@@ -7,17 +11,17 @@
         {{/if}}
         <div class="container1">
             <div id="chat-log">
-            <div class="message">
-                {{!-- <div class="sender">John Doe</div>
+                <div class="message">
+                    {{! <div class="sender">John Doe</div>
                 <div class="contentSender ">Hello! How are you?</div>
                 <div class="contentSender ">có cái loz</div>
                 <div class="receive">Jane Smith</div>
-                <div class="contentReceive">I'm good, thanks! How about you?</div> --}}
+                <div class="contentReceive">I'm good, thanks! How about you?</div> }}
+                </div>
+                <!-- Thêm các tin nhắn khác vào đây -->
             </div>
-            <!-- Thêm các tin nhắn khác vào đây -->
         </div>
-        </div>
-        
+
         <div class="input-group">
             <input
                 type="text"
@@ -37,9 +41,7 @@
     crossorigin="anonymous"
 ></script>
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-<script src='/js/chatUser.js'></script>
+<script src="/js/chatUser.js"></script>
 <script>
-
-    
 
 </script>
