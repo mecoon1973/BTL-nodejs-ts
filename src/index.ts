@@ -15,6 +15,7 @@ import { initialize } from './utils/passport-config'
 require('dotenv').config()
 import { socketIoChat } from './services/socketIoChat'
 import { Socket } from 'socket.io'
+import { timeSince } from './utils/hbs.helper';
 
 const { Server } = require("socket.io");
 const http = require('http')
@@ -34,6 +35,7 @@ hand.registerHelper(layouts(hand))
 app.set('view engine', '.hbs')
 app.set('views', path.join(path.resolve('src/resources'), 'views'))
 app.use(express.static(path.resolve("src/public")));
+hand.registerHelper('timeSince', timeSince);
 
 
 //HTTP logger
