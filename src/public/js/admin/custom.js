@@ -53,6 +53,22 @@ function onConfirmDeletePost(data) {
     return;
   }
 }
+
+function onConfirmDeleteHotel(hotelId) {
+  const result = confirm(`Do you want to delete hotel ${hotelId}?`);
+  if (result == true) {
+    $.ajax({
+      url: `/admin/hotel/${hotelId}`,
+      type: 'DELETE',
+      success: function () {
+        location.reload();
+      },
+    });
+  } else {
+    return;
+  }
+}
+
 function slugify(str) {
   str = String(str).toString();
   str = str.replace(/^\s+|\s+$/g, '');

@@ -12,7 +12,7 @@ router.post('/', loginController.commit)
 router.get('/register', loginController.index_register)
 router.post('/register', loginController.commit_register)
 
-router.get('/reset', checkMiddlerWares.checkIsAdmin, loginController.index_reset)
+router.get('/reset', loginController.index_reset)
 router.post('/reset', loginController.commit_reset)
 
 export default router

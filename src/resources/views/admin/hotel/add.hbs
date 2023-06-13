@@ -1,0 +1,124 @@
+<div class="page-wrapper">
+  <div class="page-breadcrumb">
+    <div class="row align-items-center">
+      <div class="col-md-6 col-8 align-self-center">
+        <h3 class="page-title mb-0 p-0">New Hotel</h3>
+        <div class="d-flex align-items-center"></div>
+      </div>
+      <div class="col-md-6 col-4 align-self-center">
+        <div class="text-end"></div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <form
+      action="/admin/hotel/add"
+      method="post"
+      enctype="multipart/form-data"
+      class="form-material row "
+    >
+      <div class="">
+        <div class="card">
+          <div class="card-body">
+            <div class="form-group">
+              <label class="col-md-12 mb-0">Name hotel*</label>
+              <div class="col-md-12">
+                <input
+                  type="text"
+                  placeholder="Name hotel"
+                  class="form-control ps-0 form-control-line"
+                  id="nameHotel"
+                  name="nameHotel"
+                  {{!-- oninput="onPostTitleInput(this.value)" --}}
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="totalRoom" class="col-md-12">Total room*</label>
+              <div class="col-md-12">
+                <input
+                  id="countRoom"
+                  type="text"
+                  placeholder="Total room"
+                  name="countRoom"
+                  class="form-control ps-0 form-control-line"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="file" class="col-md-12">Image</label>
+              <div class="col-md-12">
+                <input
+                  type="file"
+                  name="file"
+                  id="file"
+                  class="form-control ps-0 form-control-line"
+                  accept="image/png, image/gif, image/jpeg"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="city" class="col-md-12">City*</label>
+              <div class="col-md-12">
+                <input
+                  id="city"
+                  type="text"
+                  placeholder="City"
+                  name="city"
+                  class="form-control ps-0 form-control-line"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="address" class="col-md-12">Address*</label>
+              <div class="col-md-12">
+                <input
+                  id="address"
+                  type="text"
+                  placeholder="Address"
+                  name="Address"
+                  class="form-control ps-0 form-control-line"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="typeOf" class="col-md-12">Type*</label>
+              <div class="col-md-12">
+                <input
+                  id="typeOf"
+                  type="text"
+                  placeholder="Type"
+                  name="typeOf"
+                  class="form-control ps-0 form-control-line"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="moneyForOneNight" class="col-md-12">Price*</label>
+              <div class="col-md-12">
+                <input
+                  id="moneyForOneNight"
+                  type="text"
+                  placeholder="Price"
+                  name="moneyForOneNight"
+                  class="form-control ps-0 form-control-line"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-12 d-flex">
+                <button
+                  class="btn btn-success mx-auto mx-md-0 text-white"
+                  type="submit"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

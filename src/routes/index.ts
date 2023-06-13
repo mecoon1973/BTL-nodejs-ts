@@ -4,6 +4,7 @@ import loginRouter from './login'
 import serviceRouter from './service'
 import postRouter from './post';
 import adminPostRouter from './post.admin';
+import adminHotelRouter from './hotel.admin';
 import errorHandler from '../middlewares/404.mindleware';
 
 function route(app: any) {
@@ -12,6 +13,7 @@ function route(app: any) {
   app.use('/', siteRouter)
   app.use('/post', postRouter);
   app.use('/admin/post', adminPostRouter);
+  app.use('/admin/hotel', adminHotelRouter);
   app.use(errorHandler);
 }
 
