@@ -45,6 +45,7 @@ class serviceController {
             .getMany();
 
         res.render('Listhotel', {
+            city: city,
             listHotel: listAddressHotel,
             countPerson: countPerson,
             countChilden: countChilden,
@@ -55,7 +56,7 @@ class serviceController {
 
     }
 
-    public static async find_hotel(req: any, res: any, next: any) {
+    public static async findHotel(req: any, res: any, next: any) {
         const city = req.body.city
         const listAddressHotel = await hotelRepository
             .createQueryBuilder('hotel')
@@ -65,6 +66,23 @@ class serviceController {
             res.json({ message: 'không tìm thấy khách sạn ở địa điểm này' })
         } else {
             res.json()
+        }
+    }
+
+    public static async findHotelCost(req: any, res: any, next: any) {
+        const city = req.body.city
+        const valMin = req.body.valMin
+        const valMax = req.body.valMax
+        const listAddressHotel = await hotelRepository
+        .createQueryBuilder('hotel')
+        .where('hotel.city = :city', { city: city })
+        .andWhere('hotel.moneyForOneNight > :valMin', { valMin: valMin })
+        .andWhere('hotel.moneyForOneNight < :valMax', { valMax: valMax })
+        .getMany();
+        if (listAddressHotel.length == 0) {
+            res.json({ message: 'không tìm thấy khách sạn ở địa điểm này' })
+        } else {
+            res.json({hotel :listAddressHotel })
         }
     }
 

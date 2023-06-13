@@ -7,12 +7,16 @@ require('dotenv').config()
 router.get('/', serviceController.index)
 // router.get('/listHotel',  serviceController.Listhotel)
 router.get('/searchHotel', serviceController.service)
+
 router.get('/chat', serviceController.indexChat)
+
 router.get('/chatadmin', serviceController.indexChatAdmin)
 
 router.get('/hotel', serviceController.service)
 router.post('/bookingHotels', checkMiddlerWares.checkLoginJson, serviceController.booking_hotels)
 
-router.post('/findHotel', serviceController.find_hotel)
+router.post('/findHotel', serviceController.findHotel)
+
+router.post('/findhotelcost', serviceController.findHotelCost)
 
 export default router
