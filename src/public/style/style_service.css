@@ -65,6 +65,7 @@
     z-index: 2;
     position: absolute;
     top: 50px;
+    right: 20%;
     background-color: white;
     color: gray;
     border-radius: 5px;
