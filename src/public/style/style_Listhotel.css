@@ -1,4 +1,10 @@
-
+a{
+  text-decoration: none;
+  color: white;
+}
+a:hover{
+  text-decoration: none;
+}
 .listContainer {
   display: flex;
   justify-content: center;
@@ -361,11 +367,22 @@ button:hover {
   color: gray;
 }
 
-.siCheckButton{
+/* .siCheckButton{
   background-color: #0071c2;
   color: white;
   font-weight: bold;
   padding: 10px 5px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+} */
+
+.siDetailButton{
+  background-color: #d1c42f;
+  /* color: white; */
+  font-weight: bold;
+  padding: 10px 5px;
+  margin: 10px;
   border: none;
   cursor: pointer;
   border-radius: 5px;

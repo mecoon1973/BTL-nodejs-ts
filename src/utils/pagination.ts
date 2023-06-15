@@ -1,7 +1,7 @@
 export class PaginationOptions {
   page: number = 1;
 
-  limit: number = 10;
+  limit: number = 3;
 }
 export interface IPaginationResponse<T> {
   limit: number;

@@ -6,7 +6,7 @@ class HotelAdminController{
     async getIndexPage(req: Request, res: Response) {
         const query = {
           page: Number(req.query['page']) || 1,
-          limit: Number(req.query['limit']) || 10,
+          limit: Number(req.query['limit']) || 3,
         };
         const response = await service.search(query);
         const hotels = response.data.map((el) => {
@@ -49,7 +49,7 @@ class HotelAdminController{
         const body = {
           imageHotel: file?.filename || '',
           ...req.body,
-          authorId: 1, 
+          // authorId: 1, 
         };
         await service.createOne(body);
         res.redirect('/admin/hotel');
@@ -71,10 +71,10 @@ class HotelAdminController{
         };
         if (req.file) {
           const file = req.file;
-          body.imageUrl = file?.filename || '';
+          body.imageHotel = file?.filename || '';
         }
         await service.updateOne(parseInt(id), body);
-        res.redirect('/admin/hotel');
+        res.redirect('/admin/hotel'); 
       }
       async deleteOne(req: Request, res: Response) {
         const id = req.params['id'];

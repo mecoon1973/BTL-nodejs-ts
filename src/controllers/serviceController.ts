@@ -4,6 +4,9 @@ import { User } from "~/models/database/User"
 import MyDataSource from "~/utils/myDataSource"
 import { Message } from '../models/database/Message';
 
+import { Request, Response, NextFunction } from 'express';
+import service from '~/services/hotel.service';
+
 const hotelRepository = MyDataSource.getRepository(Hotel)
 const hotelBookingRepository = MyDataSource.getRepository(HotelBooking)
 class serviceController {
@@ -118,5 +121,17 @@ class serviceController {
     public static list_hotel(req: any, res: any, next: any) {
         res.render('Listhotel')
     }
+
+
+    public static async detailHotel(req: Request, res: Response) {
+        try {
+          const id = req.params['id'];
+          const hotel = await service.getOne(parseInt(id));
+          res.render('detailHotel', { hotel, layout:'' });
+        } catch (err) {
+          console.error(err);
+          res.status(500).send('Internal Server Error');
+        } 
+      }
 }
 export default serviceController

@@ -30,7 +30,7 @@ export class HotelService {
           where: {
             id,
           },
-          relations: ['author'],
+          // relations: ['author'],
         });
         if (!hotel) {
           throw new Error('Hotel not found!');
@@ -39,7 +39,6 @@ export class HotelService {
       }
       async createOne(body: any) {
         const hotel = plainToInstance(Hotel, body);
-        console.log(hotel)
         return await this.repo.save(hotel);
       }
 

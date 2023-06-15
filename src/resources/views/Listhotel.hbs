@@ -95,8 +95,8 @@
                                     class="siPrice"
                                 >{{this.moneyForOneNight}}đ</span>
                                 <form
-                                    action="/service/bookingHotels"
-                                    method="post"
+                                    {{!-- action="/service/bookingHotels"
+                                    method="post" --}}
                                     id="bookingHotels"
                                 >
                                     <input
@@ -104,12 +104,12 @@
                                         value="{{this.id}}"
                                         class="idRoom"
                                     />
-                                    <button
+                                    {{!-- <button
                                         class="siCheckButton"
                                         type="submit"
-                                    >đặt phòng</button>
+                                    >Đặt phòng</button> --}}
+                                    <button class="siDetailButton" type="submit" ><a href="/service/detailHotel/{{this.id}}" type="button">Xem chi tiết</a></button>
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -123,5 +123,4 @@
         crossorigin="anonymous"
     ></script>
     <script src="/js/listhotel.js"></script>
-
 </body>

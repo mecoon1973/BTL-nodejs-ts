@@ -19,4 +19,6 @@ router.post('/findHotel', serviceController.findHotel)
 
 router.post('/findhotelcost', serviceController.findHotelCost)
 
+router.get('/detailHotel/:id',  serviceController.detailHotel)
+
 export default router

@@ -1,0 +1,183 @@
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<!-- Link tới các tệp CSS của Bootstrap 4 -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	      crossorigin="anonymous">
+	<title>Booking blog du lich PM2</title>
+</head>
+<body>
+	<style>
+		.ml-auto, .mx-auto {
+    		margin-left: 450px !important;
+		}
+		.btn {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0;
+      }
+      
+      .btn-primary {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+      
+      .btn-primary:hover {
+        background-color: #0069d9;
+        border-color: #0062cc;
+      }
+      
+      .btn-secondary {
+        color: #fff;
+		margin-top: 20px;
+        background-color: #6c757d;
+        border-color: #6c757d;
+      }
+      
+      .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+      }
+      
+      .img-fluid {
+        max-width: 100%;
+        height: auto;
+		width: 400px;
+        display: block;
+        margin: 23 auto;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+        margin-bottom: 20px;
+      }
+      
+      .btn-group {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 20px;
+      }
+      
+      .btn-group .btn {
+        margin-right: 10px;
+      }
+      
+      .btn-group .btn:last-child {
+        margin-right: 0;
+      }
+      
+      .btn-close {
+        margin-left: auto;
+      }
+
+    .fav-btn:hover {
+    	color: #f44336;
+    }
+    .fav-btn {
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: 20px;
+        margin-left: 10px;
+        font-size: 1.5rem;
+        color: #ccc;
+        cursor: pointer;
+    }
+    .fav-btn.active {
+        color: red;
+    }
+    .btn-primary{
+        margin-top: 20px;
+		margin-left: 15px;
+    }
+	.radio-container {
+		display: inline-block;
+		margin-right: 20px;
+  	}
+  	.radio-container label {
+		display: inline-block;
+		vertical-align: middle;
+  	}
+	</style>
+	<div class="container">
+		<h1 class="my-4">Thông tin khách sạn</h1>
+		<div class="row">
+			<div class="col-md-4">
+				<img src="{{hotel.imgHotel}}" alt="[Tên khách sạn]" class="img-fluid">
+			</div>
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-6">
+						<h3 class="my-3">Thông tin cơ bản</h3>
+						<ul class="list-unstyled">
+							<li><strong>Tên khách sạn:</strong> {{hotel.nameHotel}}</li>
+							<li><strong>Loại:</strong> {{hotel.typeOf}}</li>
+							<li><strong>Thành phố:</strong> {{hotel.city}}</li>
+							<li><strong>Địa chỉ:</strong> {{hotel.Address}}</li>
+							<li><strong>Tổng số phòng:</strong> {{hotel.countRoom}}</li>
+							<li><strong>Số phòng VIP:</strong> {{hotel.vipRoom}}</li>
+						</ul>
+						<h3 class="my-3">Thông tin giá</h3>
+						<ul class="list-unstyled">
+							<li><strong>Giá phòng thường:</strong> {{hotel.moneyForOneNight}}/đêm</li>
+							<li><strong>Giá phòng VIP:</strong> <span id="vip-price"></span></li>
+							<p>Thông tin giá phòng Vip: giá phòng Vip sẽ được tính theo công thức 'Giá phòng thường x 20%'</p>
+						</ul>
+						<div class="radio-container">
+							<input type="radio" id="normal-room" name="room-type" checked>
+							<label for="normal-room">Phòng thường</label>
+						</div>
+						<div class="radio-container">
+							<input type="radio" id="vip-room" name="room-type">
+							<label for="vip-room">Phòng VIP</label>
+						</div>
+					</div>
+				<div class="row">
+					<div class="col-md-12">
+						<span class="fav-btn" onclick="themVaoYeuThich(this)">
+							<i class="fa fa-heart"></i>
+						</span>
+						<button type="button" class="btn btn-primary" onclick="datPhong()">Đặt phòng</button>
+						<button type="button" class="btn btn-secondary ml-auto" onclick="out()">Đóng</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Link tới các tệp JavaScript của Bootstrap 4 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi4jizo"
+	        crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNS"
+	        crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	        crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		function datPhong() {
+			// Xử lý logic đặt phòng ở đây
+			alert("Bạn đã đặt phòng thành công!");
+		}
+		function out() {
+			window.history.back();
+		}
+		function themVaoYeuThich(btn) {
+			if (btn.classList.contains("active")) {
+				btn.classList.remove("active");
+				alert("Đã xóa khách sạn khỏi danh sách yêu thích!");
+			} else {
+				btn.classList.add("active");
+				alert("Đã thêm khách sạn vào danh sách yêu thích!");
+			}
+		}
+		// Lấy giá trị ban đầu của phòng VIP
+		const vipPrice = {{hotel.moneyForOneNight}};
+
+		// Tính giá trị mới
+		const newPrice = vipPrice * 1.2;
+
+		// Hiển thị giá trị mới lên màn hình
+		document.getElementById("vip-price").innerHTML = newPrice + "/đêm";
+	</script>
+</body>

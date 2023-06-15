@@ -25,6 +25,9 @@ export class Hotel {
   countRoom: number
 
   @Column()
+  vipRoom: number
+
+  @Column()
   imgHotel: string
 
   @Column()

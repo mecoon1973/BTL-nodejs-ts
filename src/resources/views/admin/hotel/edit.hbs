@@ -48,12 +48,25 @@
               </div>
             </div>
             <div class="form-group">
+              <label for="vipRoom" class="col-md-12">Vip room*</label>
+              <div class="col-md-12">
+                <input
+                  id="vipRoom"
+                  type="text"
+                  placeholder="Vip room"
+                  name="vipRoom"
+                  value="{{hotel.vipRoom}}"
+                  class="form-control ps-0 form-control-line"
+                />
+              </div>
+            </div>
+            <div class="form-group">
               <label for="file" class="col-md-12">Image</label>
               <div class="col-md-12">
                 <input
                   type="file"
-                  name="file"
-                  value="{{hotel.file}}"
+                  name="imgHotel"
+                  value="{{hotel.imgHotel}}" 
                   id="file"
                   class="form-control ps-0 form-control-line"
                   accept="image/png, image/gif, image/jpeg"
@@ -80,8 +93,8 @@
                   id="address"
                   type="text"
                   placeholder="Address"
-                  name="address"
-                  value="{{hotel.address}}"
+                  name="Address"
+                  value="{{hotel.Address}}"
                   class="form-control ps-0 form-control-line"
                 />
               </div>

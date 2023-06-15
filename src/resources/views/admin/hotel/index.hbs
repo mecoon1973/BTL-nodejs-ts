@@ -31,8 +31,8 @@
                     <th class='border-top-0'>#</th>
                     <th class='border-top-0'>Name hotel</th>
                     <th class='border-top-0'>Total room</th>
-                    <th class='border-top-0'>City</th>
-                    <th class='border-top-0'>Type</th>
+                    <th class='border-top-0'>Vip room</th>
+                    <th class='border-top-0'>Address</th>
                     <th class='border-top-0'>Price</th>
                     <th class='border-top-0'>Action</th>
                   </tr>
@@ -43,8 +43,8 @@
                       <td>{{this.id}} </td>
                       <td>{{this.nameHotel}}</td>
                       <td>{{this.countRoom}}</td>
-                      <td>{{this.city}}</td>
-                      <td>{{this.typeOf}}</td>
+                      <td>{{this.vipRoom}}</td>
+                      <td>{{this.Address}}</td>
                       <td>{{this.moneyForOneNight}}</td>
                       <td>
                         <a
@@ -84,13 +84,13 @@
                 <li class='page-item {{pagination.prevClass}}'>
                   <a
                     class='page-link'
-                    href='/admin/post?page={{pagination.prevPage}}&limit={{pagination.limit}}'
+                    href='/admin/hotel?page={{pagination.prevPage}}&limit={{pagination.limit}}'
                   >Previous</a>
                 </li>
                 <li class='page-item {{pagination.nextClass}}'>
                   <a
                     class='page-link'
-                    href='/admin/post?page={{pagination.nextPage}}&limit={{pagination.limit}}'
+                    href='/admin/hotel?page={{pagination.nextPage}}&limit={{pagination.limit}}'
                   >Next</a>
                 </li>
 

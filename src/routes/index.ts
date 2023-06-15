@@ -7,7 +7,7 @@ import adminPostRouter from './post.admin';
 import adminHotelRouter from './hotel.admin';
 import errorHandler from '../middlewares/404.mindleware';
 
-function route(app: any) {
+function route(app: any) { 
   app.use('/login', loginRouter)
   app.use('/service', serviceRouter)
   app.use('/', siteRouter)
