@@ -1,5 +1,5 @@
 $("#textSearch").on('blur', function (e) {
-    e.preventDefault();
+    e.preventDefault()
     $.ajax({
         url: '/service/findHotel',
         method: 'POST',

@@ -1,14 +1,15 @@
 import { Hotel } from "~/models/database/Hotel"
+import { Message } from "~/models/database/Message"
 import { HotelBooking } from "~/models/database/HotelBooking"
 import { User } from "~/models/database/User"
 import MyDataSource from "~/utils/myDataSource"
-import { Message } from '../models/database/Message';
 
 import { Request, Response, NextFunction } from 'express';
 import service from '~/services/hotel.service';
 
 const hotelRepository = MyDataSource.getRepository(Hotel)
 const hotelBookingRepository = MyDataSource.getRepository(HotelBooking)
+const messageRepository = MyDataSource.getRepository(Message)
 class serviceController {
     public static async index(req: any, res: any, next: any) {
         const user = req.session.user
@@ -21,7 +22,12 @@ class serviceController {
     public static async indexChat(req: any, res: any, next: any) {
         const user = req.session.user
         if (user) {
-            res.render('chat', { user: user })
+            const dataMessage = await messageRepository.createQueryBuilder()
+                .select()
+                .where("message.idChatHistory = :idChatHistory", { idChatHistory: user.id })
+                .getMany()
+            console.log(dataMessage)
+            res.render('chat', { user: user , dataMessage : dataMessage})
             return
         }
         res.render('chat')

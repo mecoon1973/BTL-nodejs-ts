@@ -234,3 +234,25 @@ p {
   margin-bottom: 5px;
   padding: 6px 18px;
 }
+#form-send{
+  display: flex;
+  width: 100%;
+}
+/* .chat-button .chat-button--right {
+  float: right !important;
+}
+.chat-button{
+  cursor: pointer !important;
+    position: relative !important;
+}
+.chat-button--img{
+  height: 70px !important;
+    width: 70px !important;
+    position: fixed; 
+  bottom: 20px; 
+  right:20px;
+}
+#img-chat{
+  width: 70px;
+  height: 70px;
+} */

@@ -10,12 +10,13 @@ socket.on('userOnline', (data) => {
     $('#socketUser').val(data)
 })
 
-$('#send-button').on('click', () => {
+$('#form-send').on('submit', (e) => {
+    e.preventDefault()
     adjacentReceive = false
     if (adjacentSend) {
         $(`.${$('#socketUser').val()}`).append(`<div class="contentSender ">${$('#user-input').val()}</div>`)
     } else {
-        $(`.${$('#socketUser').val()}`).append(`<div class="sender">${$('#nameUser').val()}</div>
+        $(`.${$('#socketUser').val()}`).append(`<div class="sender">admin</div>
                             <div class="contentSender ">${$('#user-input').val()}</div>`)
     }
     socket.emit('sendMessage', {

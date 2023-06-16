@@ -6,11 +6,14 @@ export class Message {
   id: number
 
   @Column()
-  userSend: string
+  userSend: Number
 
   @Column()
-  userReceive: string
+  userReceive: Number
 
   @Column()
   content: string
+
+  @Column()
+  idChatHistory: Number
 }

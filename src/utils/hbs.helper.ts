@@ -25,3 +25,6 @@ export const timeSince = function (dateStr: string) {
   }
   return Math.floor(seconds) + ' seconds';
 };
+export const eq = function (a: Number, b: Number): boolean {
+  return a === b
+}
