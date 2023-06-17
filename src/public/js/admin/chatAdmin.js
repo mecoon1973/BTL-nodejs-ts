@@ -6,48 +6,58 @@ if ($('#emailUser').val() != undefined) {
     socket.emit('userLogin', $('#emailUser').val())
 }
 
-socket.on('userOnline', (data) => {
-    $('#socketUser').val(data)
+socket.on('checkReloadUserChat', (data) => {
+    arrsocket.forEach(function (item) {
+        if (item.id == data.idUser) {
+            item.socketid = data.socketUser
+        }
+    })
 })
 
 $('#form-send').on('submit', (e) => {
     e.preventDefault()
     adjacentReceive = false
     if (adjacentSend) {
-        $(`.${$('#socketUser').val()}`).append(`<div class="contentSender ">${$('#user-input').val()}</div>`)
+        $(`.${$('#idUserChat').val()}`).append(`<div class="contentSender ">${$('#user-input').val()}</div>`)
     } else {
-        $(`.${$('#socketUser').val()}`).append(`<div class="sender">admin</div>
+        $(`.${$('#idUserChat').val()}`).append(`<div class="sender">admin</div>
                             <div class="contentSender ">${$('#user-input').val()}</div>`)
     }
     socket.emit('sendMessage', {
         message: $('#user-input').val(),
         socketUser: $('#socketUser').val(),
-        userName: $('#nameUser').val()
+        userName: 'admin'
     })
     adjacentSend = true
     $('#user-input').val('')
 })
 socket.on('receiveMessages', (data) => {
     adjacentSend = false
-
-    if (arrsocket.includes(data.socketUser)) {
+    if (arrsocket.some((item) => {
+        if (item.id === data.idUser) {
+            if (item.socketid !== data.socketUser)
+                item.socketid = data.socketUser
+            return item.id === data.idUser
+        }
+        return false
+    })) {
         if (adjacentReceive) {
-            $(`.${data.socketUser}`).append(`<div class="contentReceive ">${data.message}</div>`)
+            $(`.${data.idUser}`).append(`<div class="contentReceive ">${data.message}</div>`)
         } else {
-            $(`.${data.socketUser}`).append(`<div class="receive">${data.userName}</div>
+            $(`.${data.idUser}`).append(`<div class="receive">${data.userName}</div>
                                 <div class="contentReceive ">${data.message}</div>`)
         }
 
     } else {
-        arrsocket.push(data.socketUser)
-        $('.listUser').append(`<div class="nameUser" id="${data.socketUser}"> <h5>${data.userName} </h5> </div>`)
-        $('.listMessage').append(` <div class="message ${data.socketUser}">
+        arrsocket.push({ id: data.idUser, socketid: data.socketUser })
+        $('.listUser').append(`<div class="nameUser" id="${data.idUser}"> <h5>${data.userName} </h5> </div>`)
+        $('.listMessage').append(` <div class="message ${data.idUser}">
                                         <div class="receive">${data.userName}</div>
                                         <div class="contentReceive ">${data.message}</div>  
                                     </div> `)
 
-        windowchat(data.socketUser)
-        changeColor('50e076', data.socketUser)
+        windowchat(data.idUser)
+        changeColor('50e076', data.idUser)
     }
 
     adjacentReceive = true
@@ -69,9 +79,15 @@ function windowchat(sockChat) {
 }
 
 $(document).on('click', '.nameUser', function () {
-    var socketid = $(this).attr('id')
-    $('#socketUser').val(socketid)
-    changeColor('50e076', socketid)
-    windowchat(socketid)
+    var idUser = $(this).attr('id')
+    arrsocket.forEach(function (item) {
+        if (item.id == idUser) {
+            console.log(item.socketid)
+            $('#socketUser').val(item.socketid)
+            $('#idUserChat').val(item.id)
+        }
+    })
+    changeColor('50e076', idUser)
+    windowchat(idUser)
 
 })

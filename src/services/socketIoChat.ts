@@ -21,19 +21,20 @@ export function socketIoChat(io: any): void {
           if (userchat) {
             idUserReceive = userchat.id
             socket.emit('userOnline', userchat.socketId)
+            io.emit('checkReloadUserChat', { idUser: idUserSend, socketUser: socket.id })
           }
         }
       }
     })
 
     socket.on('sendMessage', async (data: any) => {
-      io.to(data.socketUser).emit('receiveMessages', {
-        message: data.message,
-        socketUser: socket.id,
-        userName: data.userName
-      })
-
       if (idUserReceive) {
+        io.to(data.socketUser).emit('receiveMessages', {
+          message: data.message,
+          socketUser: socket.id,
+          userName: data.userName,
+          idUser: idUserSend
+        })
         await messageRepository
           .createQueryBuilder()
           .insert()
@@ -46,6 +47,11 @@ export function socketIoChat(io: any): void {
           })
           .execute()
       } else {
+        io.to(data.socketUser).emit('receiveMessages', {
+          message: data.message,
+          socketUser: socket.id,
+          userName: data.userName
+        })
         const userchat = await userRepository.findOneBy({ socketId: data.socketUser })
         if (userchat) {
           await messageRepository

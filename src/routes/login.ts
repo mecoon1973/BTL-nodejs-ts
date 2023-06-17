@@ -12,6 +12,8 @@ router.post('/', loginController.commit)
 router.get('/register', loginController.index_register)
 router.post('/register', loginController.commit_register)
 
+router.get('/logout', loginController.log_out)
+
 router.get('/reset', loginController.index_reset)
 router.post('/reset', loginController.commit_reset)
 

@@ -6,6 +6,7 @@
 	      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	      crossorigin="anonymous">
 	<title>Booking blog du lich PM2</title>
+	{{!-- <link rel="stylesheet" href="/style/chatadmin.css" /> --}}
 </head>
 <body>
 	<style>
@@ -97,8 +98,43 @@
 		display: inline-block;
 		vertical-align: middle;
   	}
+	.container1 {
+    display: flex;
+    flex-direction: column;
+	margin: 0px !important;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  .input-group {
+   margin-top: auto;
+  }
+  #form-send{
+    display: flex;
+    width: 100%;
+  }
+  .message{
+	overflow-y: scroll;
+	width: 280px;
+	height: 400px;
+  }
+  .btn-primary{
+	margin: 0px;
+	border-radius: 5px;
+  }
+  .usercomment{
+	border: 1px solid #eed5d5;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 3px;
+	border-radius: 5px;
+  }
 	</style>
-	<div class="container">
+	<div class="container-fluid">
 		<h1 class="my-4">Thông tin khách sạn</h1>
 		<div class="row">
 			<div class="col-md-4">
@@ -131,12 +167,52 @@
 							<label for="vip-room">Phòng VIP</label>
 						</div>
 					</div>
+				<div class="col-md-6">
+					            <div class="container1 col-xl-8">
+                <div class="listMessage">
+                    <div class="message">
+						<div class="usercomment">
+							<div class="contentSender ">Hello! How are you?</div>
+                            <div class="contentSender ">có cái </div>
+						</div>
+						<div class="usercomment">
+							<div class="contentSender ">Hello! How are you?</div>
+                            <div class="contentSender ">có cái </div>
+						</div>
+						<div class="usercomment">
+							<div class="contentSender ">Hello! How are you?</div>
+                            <div class="contentSender ">có cái </div>
+						</div>
+
+                    </div>
+                </div>
+                <div class="input-group">
+                        <form action="" id="form-send">
+                    <input
+                        type="text"
+                        id="user-input"
+                        class="form-control"
+                        placeholder="Enter your message..."
+						readonly
+                    />
+                    <div class="input-group-append">
+                            <button
+                            id="send-button"
+                            class="btn btn-primary"
+                            type="submit"
+                        >gửi</button>
+                        </form>
+                        
+                    </div>
+                </div>
+                </div>
+					</div>
 				<div class="row">
 					<div class="col-md-12">
 						<span class="fav-btn" onclick="themVaoYeuThich(this)">
 							<i class="fa fa-heart"></i>
 						</span>
-						<button type="button" class="btn btn-primary" onclick="datPhong()">Đặt phòng</button>
+						<button type="button" class="btn btn-primary" id="submitRoom">Đặt phòng</button>
 						<button type="button" class="btn btn-secondary ml-auto" onclick="out()">Đóng</button>
 					</div>
 				</div>
@@ -145,39 +221,83 @@
 	</div>
 	
 	<!-- Link tới các tệp JavaScript của Bootstrap 4 -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	{{!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 	        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi4jizo"
-	        crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	        crossorigin="anonymous"></script> --}}
+	{{!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 	        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNS"
-	        crossorigin="anonymous"></script>
+	        crossorigin="anonymous"></script> --}}
+			<script
+				src="https://code.jquery.com/jquery-3.6.3.js"
+				integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+				crossorigin="anonymous"
+			></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	        crossorigin="anonymous"></script>
-	<script type="text/javascript">
-		function datPhong() {
-			// Xử lý logic đặt phòng ở đây
-			alert("Bạn đã đặt phòng thành công!");
-		}
-		function out() {
-			window.history.back();
-		}
-		function themVaoYeuThich(btn) {
-			if (btn.classList.contains("active")) {
-				btn.classList.remove("active");
-				alert("Đã xóa khách sạn khỏi danh sách yêu thích!");
-			} else {
-				btn.classList.add("active");
-				alert("Đã thêm khách sạn vào danh sách yêu thích!");
+		
+	</script>
+	<script>
+	$('#user-input').on('click', function (e){
+		$.ajax({
+        url: '/service/checkUserWithRoom',
+        method: 'POST',
+		data : {idRoom:  {{hotel.id}} },
+        xhrFields: {
+            withCredentials: true
+        },
+        processData: true,
+        success: function (data) {
+			console.log(data)
+        }
+    })
+	})
+	
+	function datPhong() {
+    // Xử lý logic đặt phòng ở đây
+		const selectedRadio = $('input[name="room-type"]:checked')
+    	alert("Bạn đã đặt phòng thành công!");
+	}
+	$('#submitRoom').on('click', function(){
+		var kindOfRoom = $('input[name="room-type"]:checked') == 'normal-room' ? 0 : 1
+		$.ajax({
+			url: window.location.href,
+			method: 'POST',
+			data : {kindOfRoom : kindOfRoom},
+			xhrFields: {
+				withCredentials: true
+			},
+			processData: true,
+			success: function (data) {
+				if (data.url) {
+					window.location.href = data.url
+				}
+				if(data.check) {
+					alert("Bạn đã đặt phòng thành công!")
+				}
 			}
+    	})
+	})
+
+	function out() {
+		window.history.back();
+	}
+	function themVaoYeuThich(btn) {
+		if (btn.classList.contains("active")) {
+			btn.classList.remove("active");
+			alert("Đã xóa khách sạn khỏi danh sách yêu thích!");
+		} else {
+			btn.classList.add("active");
+			alert("Đã thêm khách sạn vào danh sách yêu thích!");
 		}
-		// Lấy giá trị ban đầu của phòng VIP
-		const vipPrice = {{hotel.moneyForOneNight}};
+	}
+	// Lấy giá trị ban đầu của phòng VIP
+	const vipPrice = {{hotel.moneyForOneNight}};
 
-		// Tính giá trị mới
-		const newPrice = vipPrice * 1.2;
+	// Tính giá trị mới
+	const newPrice = vipPrice * 1.2;
 
-		// Hiển thị giá trị mới lên màn hình
-		document.getElementById("vip-price").innerHTML = newPrice + "/đêm";
+	// Hiển thị giá trị mới lên màn hình
+	document.getElementById("vip-price").innerHTML = newPrice + "/đêm";
 	</script>
 </body>

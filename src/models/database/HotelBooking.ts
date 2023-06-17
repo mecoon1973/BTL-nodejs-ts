@@ -19,6 +19,9 @@ export class HotelBooking{
 
   @Column()
   countRoom: number
+  
+  @Column()
+  kindOfRoom: number
 
   @Column()
   dateBegin: Date

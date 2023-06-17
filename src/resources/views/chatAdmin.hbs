@@ -1,6 +1,7 @@
 <head>
-    <link rel="stylesheet" href="/style/style_blog.css" />
-    <link rel="stylesheet" href="/style/style_write.css" />
+    {{! <link rel="stylesheet" href="/style/style_blog.css" />
+    <link rel="stylesheet" href="/style/style_write.css" /> }}
+    <link rel="stylesheet" href="/style/chatadmin.css" />
 </head>
 <div class="container">
     <div class="chat-container">
@@ -9,15 +10,16 @@
             <input type="hidden" value="" id="socketUser" />
             <input type="hidden" value="{{user.name}}" id="nameUser" />
             <input type="hidden" value="{{user.id}}" id="idUser" />
+            <input type="hidden" value="" id="idUserChat" />
         {{/if}}
         <div class="row">
-            <div class="col-xl-3">
+            <div class="col-xl-1">
                 <div class="listUser">
                     {{! <div class="nameUser "> <h5> </h5> </div> }}
                 </div>
 
             </div>
-            <div class="container1 col-xl-9">
+            <div class="container1 col-xl-8">
                 <div class="listMessage">
                     <div class="message">
 
@@ -29,29 +31,26 @@
                     </div>
                 </div>
                 <div class="input-group">
-                        <form action="" id="form-send">
-                    <input
-                        type="text"
-                        id="user-input"
-                        class="form-control"
-                        placeholder="Enter your message..."
-                    />
-                    <div class="input-group-append">
-                            <button
+                    <form action="" id="form-send">
+                        <input
+                            type="text"
+                            id="user-input"
+                            class="form-control"
+                            placeholder="Enter your message..."
+                        />
+                        <button
                             id="send-button"
                             class="btn btn-primary"
                             type="submit"
                         >gửi</button>
-                        </form>
-                        
-                    </div>
+                    </form>
                 </div>
-
             </div>
         </div>
 
     </div>
 </div>
+
 <script
     src="https://code.jquery.com/jquery-3.6.3.js"
     integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="

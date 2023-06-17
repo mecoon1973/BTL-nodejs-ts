@@ -82,6 +82,13 @@ class loginController {
         }
     }
 
+    public static log_out(req: any, res: any, next: any) {
+        req.logout(function (err: any) {
+            if (err) { return next(err); }
+            req.session.user = null
+            res.redirect('/');
+        })
+    }
     public static index_reset(req: any, res: any, next: any) {
         res.render('reset')
     }

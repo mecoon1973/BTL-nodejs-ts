@@ -1,0 +1,125 @@
+
+.chat-button .chat-button--right {
+    float: right !important;
+  }
+  .chat-button{
+    cursor: pointer !important;
+      position: relative !important;
+    }
+    .container2 {
+      display: flex;
+      flex-direction: column;
+    
+      overflow: hidden;
+      overflow-y: scroll;
+      direction: ltr;
+      width: 300px;
+      height: 320px;
+      margin: 0 auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+  .chat-button--img{
+    height: 70px !important;
+      width: 70px !important;
+      position: fixed; 
+    bottom: 20px; 
+    right:20px;
+  }
+  #img-chat{
+    width: 70px;
+    height: 70px;
+  }
+  
+  #chat-box {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0px;
+  }
+  .coun{
+    flex-direction: column;
+    overflow-y: scroll;
+    direction: ltr;
+  }
+  #messages {
+    margin: 5px;
+    padding: 5px;
+    height: 305px;
+    margin-bottom: 10px;
+    flex-direction: column;
+    direction: ltr;
+    overflow-y: scroll;
+    /* overflow-y: scroll; */
+  }
+  .messages{
+    margin: 5px;
+    padding: 5px;
+    height: 305px;
+    margin-bottom: 10px;
+  }
+  #header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #5f83d0;
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 5px;
+  }
+  .input-group{
+    margin: 5px;
+  }
+  
+.message {
+    margin-bottom: 10px;
+  
+  }
+  
+  .sender {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align:left;
+  }
+  
+  .receive {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align:right
+  }
+  
+  .timestamp {
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+  
+  .contentSender {
+    text-align:left;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #4370d0;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .contentReceive {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align:right;
+    background-color: #f1f3f4;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  #form-send{
+    display: flex;
+    width: 100%;
+  }
