@@ -133,6 +133,11 @@
 	padding: 3px;
 	border-radius: 5px;
   }
+    .sender {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align:left;
+  }
 	</style>
 	<div class="container-fluid">
 		<h1 class="my-4">Thông tin khách sạn</h1>
@@ -171,21 +176,16 @@
 					            <div class="container1 col-xl-8">
                 <div class="listMessage">
                     <div class="message">
-						<div class="usercomment">
-							<div class="contentSender ">Hello! How are you?</div>
-                            <div class="contentSender ">có cái </div>
-						</div>
-						<div class="usercomment">
-							<div class="contentSender ">Hello! How are you?</div>
-                            <div class="contentSender ">có cái </div>
-						</div>
-						<div class="usercomment">
-							<div class="contentSender ">Hello! How are you?</div>
-                            <div class="contentSender ">có cái </div>
-						</div>
+						{{#each listComment}}
+							<div class="usercomment">
+									<div class="sender ">{{this.userName}}</div>
+									<div class="contentSender ">{{this.content}}</div>
+								</div>
+						{{/each}}
 
                     </div>
                 </div>
+				<input type="hidden" id="userName" value="{{user.name}}">
                 <div class="input-group">
                         <form action="" id="form-send">
                     <input
@@ -237,67 +237,105 @@
 	        crossorigin="anonymous"></script>
 		
 	</script>
+	<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 	<script>
-	$('#user-input').on('click', function (e){
-		$.ajax({
-        url: '/service/checkUserWithRoom',
-        method: 'POST',
-		data : {idRoom:  {{hotel.id}} },
-        xhrFields: {
-            withCredentials: true
-        },
-        processData: true,
-        success: function (data) {
-			console.log(data)
-        }
-    })
-	})
-	
-	function datPhong() {
-    // Xử lý logic đặt phòng ở đây
-		const selectedRadio = $('input[name="room-type"]:checked')
-    	alert("Bạn đã đặt phòng thành công!");
-	}
-	$('#submitRoom').on('click', function(){
-		var kindOfRoom = $('input[name="room-type"]:checked') == 'normal-room' ? 0 : 1
-		$.ajax({
-			url: window.location.href,
+		console.log({{listComment}})
+		$('#user-input').on('click', function (e){
+			$.ajax({
+			url: '/service/checkUserWithRoom',
 			method: 'POST',
-			data : {kindOfRoom : kindOfRoom},
+			data : {idRoom:  {{hotel.id}} },
 			xhrFields: {
 				withCredentials: true
 			},
 			processData: true,
 			success: function (data) {
-				if (data.url) {
-					window.location.href = data.url
-				}
-				if(data.check) {
-					alert("Bạn đã đặt phòng thành công!")
+				if(data.check){
+					$("#user-input").removeAttr("readonly")
 				}
 			}
-    	})
-	})
-
-	function out() {
-		window.history.back();
-	}
-	function themVaoYeuThich(btn) {
-		if (btn.classList.contains("active")) {
-			btn.classList.remove("active");
-			alert("Đã xóa khách sạn khỏi danh sách yêu thích!");
-		} else {
-			btn.classList.add("active");
-			alert("Đã thêm khách sạn vào danh sách yêu thích!");
+		})
+		})
+		
+		function datPhong() {
+		// Xử lý logic đặt phòng ở đây
+			const selectedRadio = $('input[name="room-type"]:checked')
+			alert("Bạn đã đặt phòng thành công!");
 		}
-	}
-	// Lấy giá trị ban đầu của phòng VIP
-	const vipPrice = {{hotel.moneyForOneNight}};
+		$('#submitRoom').on('click', function(){
+			var kindOfRoom = $('input[name="room-type"]:checked') == 'normal-room' ? 0 : 1
+			$.ajax({
+				url: window.location.href,
+				method: 'POST',
+				data : {kindOfRoom : kindOfRoom},
+				xhrFields: {
+					withCredentials: true
+				},
+				processData: true,
+				success: function (data) {
+					if (data.url) {
+						window.location.href = data.url
+					}
+					if(data.check) {
+						alert("Bạn đã đặt phòng thành công!")
+					}
+				}
+			})
+		})
 
-	// Tính giá trị mới
-	const newPrice = vipPrice * 1.2;
+		function out() {
+			window.history.back();
+		}
+		function themVaoYeuThich(btn) {
+			if (btn.classList.contains("active")) {
+				btn.classList.remove("active");
+				alert("Đã xóa khách sạn khỏi danh sách yêu thích!");
+			} else {
+				btn.classList.add("active");
+				alert("Đã thêm khách sạn vào danh sách yêu thích!");
+			}
+		}
+		// Lấy giá trị ban đầu của phòng VIP
+		const vipPrice = {{hotel.moneyForOneNight}};
 
-	// Hiển thị giá trị mới lên màn hình
-	document.getElementById("vip-price").innerHTML = newPrice + "/đêm";
+		// Tính giá trị mới
+		const newPrice = vipPrice * 1.2;
+
+		// Hiển thị giá trị mới lên màn hình
+		document.getElementById("vip-price").innerHTML = newPrice + "/đêm";
+
+
+		var socket = io()
+		socket.on('commentHotelToUser' , (data) => {
+			if(data.roomid == {{hotel.id}} ){
+				$('.message').append(`<div class="usercomment">
+									<div class="sender ">${data.userid.name}</div>
+									<div class="contentSender ">${data.content}</div>
+								</div>`)
+			}
+
+		})
+		var userIDcl
+		if($('#userName').val() == ''){
+			userIDcl = $('#userName').val()
+		}else{
+			userIDcl = 0
+		}
+		$('#form-send').on('submit', function(e) {
+			e.preventDefault()
+			if($('#user-input').val() != ""){
+				$('.message').append(`<div class="usercomment">
+										<div class="sender ">${ $('#userName').val() }</div>
+										<div class="contentSender ">${$('#user-input').val()}</div>
+									</div>`)
+				console.log('infunction '+ userIDcl + " ////////////////////")
+				socket.emit('commentHotel' , {
+					idRoom : {{hotel.id}} , 
+					idUser : {{user.id}},
+					content : $('#user-input').val()
+				})
+			}
+
+		})
 	</script>
 </body>

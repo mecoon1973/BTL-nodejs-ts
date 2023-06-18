@@ -1,8 +1,10 @@
 import { User } from '../models/database/User'
 import { Message } from '../models/database/Message'
+import { CommentHotel } from '../models/database/CommentHotel'
 import MyDataSource from "../utils/myDataSource"
 const userRepository = MyDataSource.getRepository(User)
 const messageRepository = MyDataSource.getRepository(Message)
+const CommentHotelRepository = MyDataSource.getRepository(CommentHotel)
 export function socketIoChat(io: any): void {
   io.on('connection', (socket: any) => {
     var idUserSend: number
@@ -68,7 +70,28 @@ export function socketIoChat(io: any): void {
         }
       }
     })
-
+    // socket comment hotel
+    socket.on('commentHotel', async (data: any) => {
+      const userComment = await userRepository.findOneBy({ id: data.idUser })
+      if(userComment){
+        socket.broadcast.emit('commentHotelToUser', {
+          roomid: data.idRoom,
+          userid: userComment,
+          content: data.content,
+        })
+        
+        await CommentHotelRepository
+          .createQueryBuilder()
+          .insert()
+          .into(CommentHotel)
+          .values({
+            roomid: data.idRoom,
+            userid: data.idUser,
+            content: data.content,
+          })
+          .execute()
+      }
+    })
 
 
     socket.on('disconnect', async () => {

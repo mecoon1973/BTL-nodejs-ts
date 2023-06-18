@@ -1,15 +1,18 @@
 import { Hotel } from "~/models/database/Hotel"
 import { Message } from "~/models/database/Message"
 import { HotelBooking } from "~/models/database/HotelBooking"
+import { CommentHotel } from "~/models/database/CommentHotel"
 import { User } from "~/models/database/User"
 import MyDataSource from "~/utils/myDataSource"
 
 import { Request, Response, NextFunction } from 'express';
 import service from '~/services/hotel.service';
 
+const userRepository = MyDataSource.getRepository(User)
 const hotelRepository = MyDataSource.getRepository(Hotel)
 const hotelBookingRepository = MyDataSource.getRepository(HotelBooking)
 const messageRepository = MyDataSource.getRepository(Message)
+const CommentHotelRepository = MyDataSource.getRepository(CommentHotel)
 class serviceController {
     public static async index(req: any, res: any, next: any) {
         const user = req.session.user
@@ -29,8 +32,9 @@ class serviceController {
         const user = req.session.user
         if (user) {
             res.render('chatAdmin', { user: user, layout: 'admin' })
+            return
         }
-        res.render('chatAdmin')
+        res.redirect('/')
     }
 
     public static async service(req: any, res: any, next: any) {
@@ -134,11 +138,34 @@ class serviceController {
     public static async detailHotel(req: any, res: any) {
         try {
             const id = req.params['id'];
+            const user = req.session.user
             const hotel = await service.getOne(parseInt(id));
-            res.render('detailHotel', { hotel, layout: '' });
+            const historyComment = await CommentHotelRepository
+                .createQueryBuilder()
+                .select()
+                .where("roomid = :roomid", { roomid: id })
+                .getMany()
+            let arrComment: any = []
+            if (historyComment.length > 0) {
+                historyComment.forEach(async (item: any) => {
+                    const userchat = await userRepository.findOneBy({ id: item.userid })
+                    if (userchat)
+                        arrComment.push({
+                            userName: userchat.name,
+                            content: item.content
+                        })
+                })
+            }
+            if (user) {
+                res.render('detailHotel', { hotel, layout: '', user: user, listComment: arrComment });
+                return
+            }
+            res.render('detailHotel', { hotel, layout: '', listComment: arrComment });
+            return
         } catch (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');
+            return
         }
     }
     public static async chatUser(req: any, res: any) {
@@ -169,7 +196,7 @@ class serviceController {
             if (historyRoom.length > 0) {
                 res.json({ check: true, historyRoom })
                 return
-            }else{
+            } else {
                 res.json({ check: false })
                 return
             }

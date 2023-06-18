@@ -10,7 +10,7 @@ router.get('/searchHotel', serviceController.service)
 
 router.get('/chat', serviceController.indexChat)
 
-router.get('/chatadmin', serviceController.indexChatAdmin)
+router.get('/chatadmin', checkMiddlerWares.checkIsAdmin,serviceController.indexChatAdmin)
 
 router.get('/hotel', serviceController.service)
 

@@ -1,5 +1,6 @@
 import { DataSource } from 'typeorm';
 import { User } from '../models/database/User';
+import { CommentHotel } from '../models/database/CommentHotel';
 import { Message } from '../models/database/Message';
 import { Hotel } from '../models/database/Hotel';
 import { HotelBooking } from '../models/database/HotelBooking';
@@ -13,7 +14,7 @@ const myDataSource = new DataSource({
   username: process.env['USERNAME_DATABASE'],
   password: process.env['PASSWORD'],
   database: process.env['DATABASE'],
-  entities: [User, Message, Hotel, HotelBooking, Post],
+  entities: [User, Message, Hotel, HotelBooking, Post, CommentHotel],
   logging: true,
   synchronize: true,
   subscribers: [],
