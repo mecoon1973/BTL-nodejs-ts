@@ -28,6 +28,9 @@ export class Hotel {
   vipRoom: number
 
   @Column()
+  like: number
+  
+  @Column()
   imgHotel: string
 
   @Column()

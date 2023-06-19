@@ -138,6 +138,14 @@
     margin-bottom: 5px;
     text-align:left;
   }
+      .traitim:hover {
+    	color: #f44336;
+    }
+		.traitim{
+        color: #ccc;
+		margin-top: -17px;
+
+	}
 	</style>
 	<div class="container-fluid">
 		<h1 class="my-4">Thông tin khách sạn</h1>
@@ -156,6 +164,7 @@
 							<li><strong>Địa chỉ:</strong> {{hotel.Address}}</li>
 							<li><strong>Tổng số phòng:</strong> {{hotel.countRoom}}</li>
 							<li><strong>Số phòng VIP:</strong> {{hotel.vipRoom}}</li>
+							<li><strong>Lượt yêu thích:</strong> {{hotel.like}}</li>
 						</ul>
 						<h3 class="my-3">Thông tin giá</h3>
 						<ul class="list-unstyled">
@@ -210,7 +219,10 @@
 				<div class="row">
 					<div class="col-md-12">
 						<span class="fav-btn" onclick="themVaoYeuThich(this)">
-							<i class="fa fa-heart"></i>
+							<a href="/favoriteHotel/detailHotel/like/{{hotel.id}}"><i class="fa fa-heart traitim"></i></a>
+						</span>
+						<span class="fav-btn" onclick="xoaKhoiYeuThich(this)">
+							<a href="/favoriteHotel/detailHotel/unlike/{{hotel.id}}"><i class="fa-sharp fa-solid fa-heart-crack traitim"></i></a>
 						</span>
 						<button type="button" class="btn btn-primary" id="submitRoom">Đặt phòng</button>
 						<button type="button" class="btn btn-secondary ml-auto" onclick="out()">Đóng</button>
@@ -293,6 +305,15 @@
 			} else {
 				btn.classList.add("active");
 				alert("Đã thêm khách sạn vào danh sách yêu thích!");
+			}
+		}
+		function xoaKhoiYeuThich(btn) {
+			if (btn.classList.contains("active")) {
+				btn.classList.remove("active");
+				alert("Đã thêm khách sạn vào danh sách yêu thích!");
+			} else {
+				btn.classList.add("active");
+				alert("Đã xóa khách sạn khỏi danh sách yêu thích!");
 			}
 		}
 		// Lấy giá trị ban đầu của phòng VIP
