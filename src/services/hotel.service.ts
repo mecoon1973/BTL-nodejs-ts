@@ -42,7 +42,9 @@ export class HotelService {
         return await this.repo.save(hotel);
       }
 
-
+      async update(id: number, hotel: Hotel) {
+        return await this.repo.save(hotel);
+      }
       async updateOne(id: number, body: any) {
         const hotel = await this.getOne(id);
         const updateHotel = plainToClassFromExist(hotel, body);

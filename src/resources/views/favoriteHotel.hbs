@@ -1,0 +1,126 @@
+
+<head>
+	<title>Booking blog du lịch PM2</title>
+	
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<!-- Link tới các tệp CSS của Bootstrap 4 -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	      crossorigin="anonymous">
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	<style>
+		img{
+			width: 200px;
+			height: 150px;
+		}
+		.hotel-image {
+			position: relative;
+			z-index: 1;
+			width: 150px;
+			height: 150px;
+		}
+		h2{
+			text-align: center;
+		}
+		.hotel-name {
+		position: absolute;
+		top: 0;
+		left: 30px;
+		z-index: 2;
+		width: 250px;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		/* justify-content: flex-end; */
+		padding: 10px;
+		/* color: #fff;
+		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+		background-color: rgba(0, 0, 0, 0.5); */
+		}
+
+		.hotel-name h4 {
+		margin-bottom: 0;
+		}
+
+		.hotel-name button {
+		margin-top: 10px;
+		}
+		.fa-heart{
+			color: red;
+		}
+
+	</style>
+	<h2>Các khách sạn yêu thích</h2>
+	<div class="container">
+		<div class="row">
+		  <div class="col-md-5">
+			<h2>Top 3 yêu thích</h2>
+			{{#each top}}
+				<ul class="list-group">
+					<li class="list-group-item">
+						<div class="row">
+						<div class="col-md-4">
+							<img src="{{this.imgHotel}}" alt="" class="hotel-image">
+						</div>
+						<div class="col-md-8">
+							<div class="hotel-name">
+								<h4 class="mb-1 ">{{this.nameHotel}}</h4>
+								<p class="mb-1"><i class="fa-solid fa-location-dot"></i> {{this.Address}}</p>
+								<p class="mb-1">{{this.like}} <i class="fa fa-heart"></i></p>
+								<button type="button" class="btn btn-primary" onclick="redirectTo('/service/detailHotel/{{this.id}}')">Xem chi tiết</button>
+							</div>
+						</div>
+						</div>
+					</li>
+				</ul>
+			{{/each}}
+		  </div>
+		  <div class="col-md-7">
+			<h2>Danh sách yêu thích của bạn</h2>
+			{{#each hotels}}
+				<ul class="list-group">
+					<li class="list-group-item">
+					<div class="row">
+						<div class="col-md-4">
+						<img src="{{this.imgHotel}}" alt="">
+						</div>
+						<div class="col-md-8">
+						<h4 class="mb-1">{{this.nameHotel}}</h4>
+						<p class="mb-1"><i class="fa-solid fa-location-dot"></i> {{this.Address}}</p>
+						<p class="mb-1">Loại: {{this.typeOf}}</p>
+						<p class="mb-1">Giá: {{this.moneyForOneNight}}đ</p>
+						<button type="button" class="btn btn-primary" onclick="redirectTo('/service/detailHotel/{{this.id}}')">Xem chi tiết</button>
+						<button type="button" class="btn btn-danger" >Xóa khỏi danh sách</button>
+						</div>
+					</div>
+					</li>
+				</ul>
+			  {{/each}}
+			<div class="text-right mt-3">
+			  <button type="button" class="btn btn-secondary" onclick="out()">Đóng</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	<!-- Link tới các tệp JavaScript của Bootstrap 4 -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi4jizo"
+	        crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNS"
+	        crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	        crossorigin="anonymous"></script>
+	<script>
+		function redirectTo(url) {
+			window.location.href = url;
+		}
+		function out() {
+			window.history.back();
+		}
+	</script>
+</body>
