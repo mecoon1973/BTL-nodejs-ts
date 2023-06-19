@@ -5,7 +5,7 @@ class PostAdminController {
   async getIndexPage(req: Request, res: Response) {
     const query = {
       page: Number(req.query['page']) || 1,
-      limit: Number(req.query['limit']) || 10,
+      limit: Number(req.query['limit']) || 3,
     };
     const response = await service.search(query);
     const posts = response.data.map((el) => {

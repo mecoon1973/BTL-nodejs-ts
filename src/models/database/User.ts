@@ -1,5 +1,6 @@
 import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Post } from './Post';
+import { Comment } from './Comment';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -25,4 +26,9 @@ export class User {
 
   @OneToMany(() => Post, (entity) => entity.author, { cascade: true })
   posts: Post[];
+
+  @OneToMany(() => Comment, (entity) => entity.author, {
+    onDelete: 'CASCADE',
+  })
+  comments: Comment[];
 }

@@ -5,13 +5,13 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   OneToMany,
-  OneToOne,
   Index,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
 import { User } from './User';
 import { EPostStatus } from '~/enums/post.enum';
+import { Comment } from './Comment';
 
 @Entity('post')
 @Index(['slug'], { unique: true })
@@ -49,4 +49,9 @@ export class Post {
   @ManyToOne(() => User)
   @JoinColumn({ name: 'author_id' })
   author: User;
+
+  @OneToMany((type) => Comment, (comment) => comment.post, {
+    onDelete: 'CASCADE',
+  })
+  comments: Comment[];
 }

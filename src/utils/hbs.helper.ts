@@ -1,6 +1,12 @@
-export const timeSince = function (dateStr: string) {
+export const timeSince = function (
+  dateStr: string,
+  options?: {
+    currentDate?: Date; // thoi dien hien tai 
+  }
+) {
+  const now = options?.currentDate ? options.currentDate : new Date();
   let timeSince = new Date(dateStr);
-  let seconds = Math.floor((Number(new Date()) - Number(timeSince)) / 1000);
+  let seconds = Math.floor((Number(now) - Number(timeSince)) / 1000);
 
   let interval = seconds / 31536000;
 
@@ -25,6 +31,3 @@ export const timeSince = function (dateStr: string) {
   }
   return Math.floor(seconds) + ' seconds';
 };
-export const eq = function (a: Number, b: Number): boolean {
-  return a === b
-}

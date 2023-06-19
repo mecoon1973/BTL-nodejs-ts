@@ -15,7 +15,134 @@
             </div>
             <h1>{{post.title}}</h1>
             <p>{{{post.content}}}</p>
+            <div class='row border-top'>
+              <div class='col-sm-8 col-md-8 col-12 py-4'>
+                <h4>Comments</h4>
+                {{#each comments}}
+                  <div class='comment mt-4 text-justify float-left w-100'>
+                    <div class='d-flex flex-row align-items-center'><img
+                        src='/img/user.png'
+                        alt=''
+                        class='rounded-circle'
+                        style='width: 40px !important; height: 40px !important;'
+                      />
+                      <div class='ml-3'>
+                        <h4>{{this.user.userName}}</h4>
+                        <span>{{timeSince this.createdAt}} ago</span>
+                      </div>
+                    </div>
+                    <div class='w-100'>
+                      <p class='' style='font-size: 14px;'>
+                        {{this.content}}</p>
+                      <div
+                        class='d-flex justify-content-end w-100 border-bottom'
+                      >
+                        <span
+                          role='button'
+                          class='px-4 py-2 text-primary'
+                          onclick='onClickLike(`{{this.jsonString}}`)'
+                        ><span id='like-{{this.id}}'>{{this.likeCount}}</span><i
+                            class='fa fa-thumbs-up ml-3'
+                            aria-hidden='true'
+                          ></i></span>
+                        <span
+                          role='button'
+                          class='px-4 py-2 text-dark'
+                          onclick='onClickUnlike(`{{this.jsonString}}`)'
+                        ><span
+                            id='unlike-{{this.id}}'
+                          >{{this.unlikeCount}}</span><i
+                            class='fa fa-thumbs-down ml-3'
+                            aria-hidden='true'
+                          ></i></span>
+                        <span
+                          role='button'
+                          class='px-4 py-2'
+                          onclick='onClickReply(`{{this.jsonString}}`)'
+                        ><i class='fa fa-reply' aria-hidden='true'></i></span>
+
+                      </div>
+                      <div class='ml-3 pl-2 d-flex flex-column'>
+                        {{#each this.children}}
+                          <div class='comment mt-4 text-justify float-left'>
+                            <div class='d-flex flex-row align-items-center'><img
+                                src='/img/user.png'
+                                alt=''
+                                class='rounded-circle'
+                                style='width: 40px !important; height: 40px !important;'
+                              />
+                              <div class='ml-2'>
+                                <h4>{{this.user.userName}}</h4>
+                                <span>{{timeSince this.createdAt}} ago </span>
+                              </div>
+                            </div>
+                            <div>
+                              <p
+                                class=''
+                                style='font-size: 14px;'
+                              >{{this.content}}</p>
+
+                            </div></div>
+                        {{/each}}
+                      </div>
+                    </div></div>
+                {{/each}}
+              </div>
+              <div class='col-lg-4 col-md-4 col-sm-4 col-12 mt-4'>
+                <form
+                  action='/post/{{post.slug}}/comment'
+                  method='post'
+                  class='form-material row'
+                  class='w-100'
+                  style='font-size: 14px;'
+                >
+                  <input
+                    id='parentId'
+                    type='text'
+                    name='parentId'
+                    class='form-control'
+                    hidden
+                  />
+                  <div class='form-group'>
+                    <h4>Leave a comment</h4>
+                    <label for='message'>Message</label>
+                    <textarea
+                      id='comment-content-input'
+                      name='content'
+                      cols='30'
+                      rows='5'
+                      class='form-control'
+                      required
+                    ></textarea>
+                  </div>
+                  {{#if isShowGetInfo}}
+                    <div class='form-group'>
+                      <label for='name'>Name</label>
+                      <input
+                        type='text'
+                        name='userName'
+                        class='form-control'
+                        required
+                      />
+                    </div>
+                    <div class='form-group'>
+                      <label for='email'>Email</label>
+                      <input
+                        type='text'
+                        name='email'
+                        class='form-control'
+                        required
+                      />
+                    </div>
+                  {{/if}}
+                  <div class='form-group'>
+                    <button type='submit' class='btn btn-primary'>Post Comment</button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
+
           <div class='menu'>
             <h1>Other posts you may like</h1>
             {{#each recommended}}
@@ -28,7 +155,9 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
+    </div>
+
+  </div>
+  <script src='/js/blog/index.js'></script>
 </body>

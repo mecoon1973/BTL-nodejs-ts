@@ -6,6 +6,7 @@ import postRouter from './post';
 import adminPostRouter from './post.admin';
 import adminHotelRouter from './hotel.admin';
 import errorHandler from '../middlewares/404.mindleware';
+import commentRouter from './comment';
 
 function route(app: any) { 
   app.use('/login', loginRouter)
@@ -14,6 +15,7 @@ function route(app: any) {
   app.use('/post', postRouter);
   app.use('/admin/post', adminPostRouter);
   app.use('/admin/hotel', adminHotelRouter);
+  app.use('/comment', commentRouter);
   app.use(errorHandler);
 }
 

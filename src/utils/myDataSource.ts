@@ -5,6 +5,8 @@ import { Message } from '../models/database/Message';
 import { Hotel } from '../models/database/Hotel';
 import { HotelBooking } from '../models/database/HotelBooking';
 import { Post } from '../models/database/Post';
+import { Comment } from '../models/database/Comment';
+import { AnonymousUser } from '../models/database/AnonymousUser';
 require('dotenv').config();
 const port = parseInt(process.env['PORT_DATABASE'] as string, 10);
 const myDataSource = new DataSource({
@@ -14,7 +16,7 @@ const myDataSource = new DataSource({
   username: process.env['USERNAME_DATABASE'],
   password: process.env['PASSWORD'],
   database: process.env['DATABASE'],
-  entities: [User, Message, Hotel, HotelBooking, Post, CommentHotel],
+  entities: [User, Message, Hotel, HotelBooking, Post, CommentHotel, Comment, AnonymousUser],
   logging: true,
   synchronize: true,
   subscribers: [],
